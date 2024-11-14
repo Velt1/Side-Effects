@@ -3,18 +3,41 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "MainLevel.tmx",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "MainLevel.tmx": {
+            "scale": 0.3712,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 736.7995689655174,
+                "y": 60.614224137931046
+            }
+        },
+        "Tilesets/Ground.tsx": {
+            "scaleInDock": 0.6729,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Village Props.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
     },
     "last.imagePath": "/Users/max/Side Effects/Assets/SuperTiled/Tilesets/Tiles/Village",
     "map.fixedSize": false,
     "map.lastUsedFormat": "tmx",
     "openFiles": [
+        "MainLevel.tmx",
+        "Tilesets/Ground.tsx",
+        "Tilesets/Village Props.tsx"
     ],
     "project": "Side Effects Map.tiled-project",
     "recentFiles": [
+        "Tilesets/Village Props.tsx",
+        "Tilesets/Ground.tsx",
+        "MainLevel.tmx"
     ],
     "tileset.lastUsedFormat": "tsx"
 }

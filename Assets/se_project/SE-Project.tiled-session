@@ -1,0 +1,156 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "Fantasy Forest Tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Fantasy Swamp Forest/Free/BG_1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Fantasy Swamp Forest/Free/BG_2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Fantasy Swamp Forest/Free/BG_3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Fantasy Swamp Forest/Free/Free.tmx": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": -307.5,
+                "y": 69.125
+            }
+        },
+        "Fantasy Swamp Forest/Free/Layout Tutorial.tmx": {
+            "scale": 0.3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": -68.33333333333326,
+                "y": -105
+            }
+        },
+        "Fantasy Swamp Forest/Free/Terrain_and_Props.tsx": {
+            "scaleInDock": 1
+        },
+        "Fantasy Swamp Forest/Free/runes_jump.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Fantasy Swamp Forest/Free/runescheckpoint.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Green-Tree.tsx": {
+            "scaleInDock": 1
+        },
+        "Props-Rocks.tsx": {
+            "scaleInDock": 1
+        },
+        "Terrain-and-Props-OLD.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Terrain_and_Props.tsx": {
+            "scaleInDock": 3,
+            "scaleInEditor": 1
+        },
+        "Tree-Assets.tsx": {
+            "scaleInDock": 1
+        },
+        "Tutorial Level.tmx": {
+            "scale": 0.5478,
+            "selectedLayer": 9,
+            "viewCenter": {
+                "x": 1041.4384811975174,
+                "y": 245.5275648046732
+            }
+        },
+        "Tutorial Map.tmx": {
+            "scale": 0.4774,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 472.35023041474653,
+                "y": -120.44407205697519
+            }
+        },
+        "rune_checkpoint.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "rune_jump_death.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "rune_jumping.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "rune_leap.tsx": {
+            "scaleInDock": 1
+        },
+        "rune_or.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "rune_projectile_death.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "rune_running.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "rune_walljump.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "runes1.tsx": {
+            "scaleInDock": 4,
+            "scaleInEditor": 1
+        },
+        "runescheckpoint2_test.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/cakos/Desktop/se_project",
+    "map.fixedSize": true,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 120,
+    "openFiles": [
+    ],
+    "project": "SE-Project.tiled-project",
+    "recentFiles": [
+        "Fantasy Swamp Forest/Free/Layout Tutorial.tmx",
+        "Tutorial Level.tmx",
+        "Tutorial Map.tmx",
+        "rune_or.tsx",
+        "rune_jump_death.tsx",
+        "rune_projectile_death.tsx",
+        "Terrain_and_Props.tsx",
+        "rune_walljump.tsx",
+        "rune_running.tsx",
+        "rune_jumping.tsx",
+        "rune_checkpoint.tsx",
+        "runes1.tsx"
+    ],
+    "resizeMap.removeObjects": true,
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
