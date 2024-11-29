@@ -3,14 +3,45 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "Assets.tsx",
     "expandedProjectPaths": [
+        "."
     ],
-    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "2. Level.tmx": {
+            "scale": 0.6560845015576323,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1260.5083614025198,
+                "y": 394.7662220111882
+            }
+        },
+        "Assets.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
+        },
+        "BG_1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
+        },
+        "Background-Trees.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
+        },
+        "Background.tsx": {
+            "scaleInDock": 1
+        },
+        "Buildings.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
+        },
+        "Dark-Tree.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
+        },
         "Fantasy Forest Tiles.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 1.5
         },
         "Fantasy Swamp Forest/Free/BG_1.tsx": {
             "scaleInDock": 1,
@@ -33,11 +64,11 @@
             }
         },
         "Fantasy Swamp Forest/Free/Layout Tutorial.tmx": {
-            "scale": 0.3,
+            "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": -68.33333333333326,
-                "y": -105
+                "x": 307.25,
+                "y": -13.25
             }
         },
         "Fantasy Swamp Forest/Free/Terrain_and_Props.tsx": {
@@ -52,7 +83,8 @@
             "scaleInEditor": 1
         },
         "Green-Tree.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
         },
         "Props-Rocks.tsx": {
             "scaleInDock": 1
@@ -63,25 +95,34 @@
         },
         "Terrain_and_Props.tsx": {
             "scaleInDock": 3,
-            "scaleInEditor": 1
+            "scaleInEditor": 1.5
+        },
+        "Tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
+        },
+        "Tree Background.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
         },
         "Tree-Assets.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
         },
         "Tutorial Level.tmx": {
-            "scale": 0.5478,
+            "scale": 0.75,
             "selectedLayer": 9,
             "viewCenter": {
-                "x": 1041.4384811975174,
-                "y": 245.5275648046732
+                "x": 1723.9999999999998,
+                "y": 239.33333333333337
             }
         },
         "Tutorial Map.tmx": {
-            "scale": 0.4774,
+            "scale": 3,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 472.35023041474653,
-                "y": -120.44407205697519
+                "x": 896,
+                "y": -128
             }
         },
         "rune_checkpoint.tsx": {
@@ -105,15 +146,15 @@
         },
         "rune_projectile_death.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 1.5
         },
         "rune_running.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 1.5
         },
         "rune_walljump.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 1.5
         },
         "runes1.tsx": {
             "scaleInDock": 4,
@@ -131,21 +172,37 @@
     "map.tileWidth": 16,
     "map.width": 120,
     "openFiles": [
+        "2. Level.tmx",
+        "Assets.tsx",
+        "Tutorial Level.tmx",
+        "Tree-Assets.tsx",
+        "Tree Background.tsx",
+        "Background-Trees.tsx",
+        "BG_1.tsx",
+        "Buildings.tsx",
+        "Dark-Tree.tsx",
+        "Fantasy Forest Tiles.tsx",
+        "Green-Tree.tsx",
+        "rune_projectile_death.tsx",
+        "rune_running.tsx",
+        "rune_walljump.tsx",
+        "Terrain_and_Props.tsx",
+        "Tutorial Map.tmx"
     ],
     "project": "SE-Project.tiled-project",
     "recentFiles": [
-        "Fantasy Swamp Forest/Free/Layout Tutorial.tmx",
-        "Tutorial Level.tmx",
+        "2. Level.tmx",
         "Tutorial Map.tmx",
-        "rune_or.tsx",
-        "rune_jump_death.tsx",
-        "rune_projectile_death.tsx",
         "Terrain_and_Props.tsx",
         "rune_walljump.tsx",
         "rune_running.tsx",
-        "rune_jumping.tsx",
-        "rune_checkpoint.tsx",
-        "runes1.tsx"
+        "rune_projectile_death.tsx",
+        "Green-Tree.tsx",
+        "Fantasy Forest Tiles.tsx",
+        "Dark-Tree.tsx",
+        "Buildings.tsx",
+        "BG_1.tsx",
+        "Background-Trees.tsx"
     ],
     "resizeMap.removeObjects": true,
     "tileset.lastUsedFormat": "tsx",

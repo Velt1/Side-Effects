@@ -93,17 +93,17 @@
  </tile>
  <tile id="212">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="15"/>
+   <object id="1" x="0" y="0" width="16" height="8.95648"/>
   </objectgroup>
  </tile>
  <tile id="213">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="13"/>
+   <object id="1" x="0" y="0" width="16" height="9.01189"/>
   </objectgroup>
  </tile>
  <tile id="214">
   <objectgroup draworder="index" id="2">
-   <object id="1" x="0" y="0" width="16" height="15"/>
+   <object id="1" x="0" y="0" width="16" height="9.04851"/>
   </objectgroup>
  </tile>
  <tile id="215">
