@@ -10,7 +10,7 @@ namespace Platformer.Mechanics
 {
     /// <summary>
     /// This is the main class used to implement control of the player.
-    /// It is a superset of the AnimationController class, but is inlined to allow for any kind of customisation.
+    /// It is a superset of the AnimationController class, but is inlined to allow for any kind of customization.
     /// </summary>
     public class PlayerController : KinematicObject
     {
@@ -29,8 +29,9 @@ namespace Platformer.Mechanics
 
         public JumpState jumpState = JumpState.Grounded;
         private bool stopJump;
-        /*internal new*/ public Collider2D collider2d;
-        /*internal new*/ public AudioSource audioSource;
+
+        public Collider2D collider2d;
+        public AudioSource audioSource;
         public Health health;
         public bool controlEnabled = true;
 
@@ -41,6 +42,20 @@ namespace Platformer.Mechanics
         readonly PlatformerModel model = Simulation.GetModel<PlatformerModel>();
 
         public Bounds Bounds => collider2d.bounds;
+
+        // WALLJUMP ADDITION:
+        [Header("Wall Jump Settings")]
+        public LayerMask wallLayer; // Assign the wall layer in the inspector
+        public float wallCheckDistance = 0.5f; // Distance to check for wall in front
+        public float wallJumpHorizontalVelocity = 7f; // Horizontal velocity after wall jump
+        public float wallJumpVerticalVelocity = 7f;   // Vertical velocity after wall jump
+        public GameObject projectilePrefab;
+        public Transform projectileSpawnPoint;
+
+        [Header("Wall Jump Settings")]
+        public float wallJumpCooldown = 0.5f; // Zeit in Sekunden
+        private float lastWallJumpTime = -Mathf.Infinity; // Zeitpunkt des letzten Walljumps
+
 
         void Awake()
         {
@@ -56,18 +71,36 @@ namespace Platformer.Mechanics
             if (controlEnabled)
             {
                 move.x = Input.GetAxis("Horizontal");
+
+                // Normal jump input
                 if (jumpState == JumpState.Grounded && Input.GetButtonDown("Jump"))
+                {
                     jumpState = JumpState.PrepareToJump;
+                }
                 else if (Input.GetButtonUp("Jump"))
                 {
                     stopJump = true;
                     Schedule<PlayerStopJump>().player = this;
+                }
+
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    Debug.Log("Fire1 button pressed");
+                    ShootProjectile();
+                }
+
+                // WALLJUMP ADDITION:
+                // If not grounded, but touching wall, allow a wall jump if Jump is pressed
+                if (!IsGrounded && IsTouchingWall() && Input.GetButtonDown("Jump"))
+                {
+                    PerformWallJump();
                 }
             }
             else
             {
                 move.x = 0;
             }
+
             UpdateJumpState();
             base.Update();
         }
@@ -118,6 +151,11 @@ namespace Platformer.Mechanics
                 }
             }
 
+            if (!IsTouchingWall()) // Nur neu berechnen, wenn kein Walljump aktiv ist
+            {
+                targetVelocity = move * maxSpeed;
+            }
+
             if (move.x > 0.01f)
                 spriteRenderer.flipX = false;
             else if (move.x < -0.01f)
@@ -125,8 +163,58 @@ namespace Platformer.Mechanics
 
             animator.SetBool("grounded", IsGrounded);
             animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
+        }
 
-            targetVelocity = move * maxSpeed;
+
+        // WALLJUMP ADDITION:
+        bool IsTouchingWall()
+        {
+            // We check to the left or right depending on sprite facing direction
+            float direction = spriteRenderer.flipX ? -1f : 1f;
+            Vector2 origin = transform.position;
+            RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right * direction, wallCheckDistance, wallLayer);
+
+            return hit.collider != null;
+        }
+
+        void PerformWallJump()
+        {
+            if (Time.time < lastWallJumpTime + wallJumpCooldown)
+            {
+                Debug.Log("Walljump is on cooldown!");
+                return; // Abbrechen, wenn die Abklingzeit noch aktiv ist
+            }
+
+            // Walljump durchführen
+            float direction = spriteRenderer.flipX ? 1f : -1f;
+            velocity.x = direction * wallJumpHorizontalVelocity;
+            velocity.y = wallJumpVerticalVelocity;
+
+            jumpState = JumpState.InFlight;
+
+            // Zeitpunkt des Walljumps speichern
+            lastWallJumpTime = Time.time;
+
+            Debug.Log($"Walljump executed at time {Time.time}");
+        }
+
+        void ShootProjectile()
+        {
+            if (projectilePrefab != null && projectileSpawnPoint != null)
+            {
+                Debug.Log("Shooting projectile");
+                // Determine direction based on sprite flipping or your facing variable
+                float direction = spriteRenderer.flipX ? -1f : 1f;
+
+                // Instantiate the projectile
+                GameObject projectileObj = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
+                // Get the Projectile component and set its direction
+                var projectile = projectileObj.GetComponent<Projectile>();
+                if (projectile != null)
+                {
+                    projectile.direction = direction;
+                }
+            }
         }
 
         public enum JumpState

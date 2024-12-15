@@ -15,7 +15,14 @@ namespace Platformer.Gameplay
 
         public override void Execute()
         {
-            Schedule<PlayerDeath>();
+            if (health.isPlayer)
+            {
+                Schedule<PlayerDeath>();
+            }
+            else
+            {
+                // handle enemy death or do nothing
+            }
         }
     }
 }
