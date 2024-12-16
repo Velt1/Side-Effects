@@ -21,7 +21,7 @@ namespace Platformer.Mechanics
         public bool IsAlive => currentHP > 0;
         public bool isPlayer = false;
 
-        int currentHP;
+        public int currentHP;
 
         /// <summary>
         /// Increment the HP of the entity.

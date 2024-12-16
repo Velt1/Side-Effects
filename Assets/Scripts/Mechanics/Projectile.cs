@@ -22,6 +22,10 @@ namespace Platformer.Mechanics
         Rigidbody2D rb;
         float timer = 0f;
 
+        [Tooltip("The owner of the projectile: Player or Enemy.")]
+        public ProjectileOwner owner;
+
+
         void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -42,26 +46,47 @@ namespace Platformer.Mechanics
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            // If the projectile hits an enemy, decrement its health.
-            var enemy = other.gameObject.GetComponent<EnemyController>();
-            if (enemy != null)
+            if (owner == ProjectileOwner.Player)
             {
-                var enemyHealth = enemy.GetComponent<Health>();
-                if (enemyHealth != null)
+                // Wenn der Spieler schießt, soll das Projektil Gegner treffen
+                var enemy = other.gameObject.GetComponent<EnemyController>();
+                if (enemy != null)
                 {
-                    enemyHealth.Decrement();
-                    if (!enemyHealth.IsAlive)
+                    var enemyHealth = enemy.GetComponent<Health>();
+                    if (enemyHealth != null)
                     {
-                        Schedule<EnemyDeath>().enemy = enemy;
+                        enemyHealth.Decrement();
+                        if (!enemyHealth.IsAlive)
+                        {
+                            Schedule<EnemyDeath>().enemy = enemy;
+                        }
                     }
+
+                    // Zerstöre das Projektil nach dem Treffer
+                    Destroy(gameObject);
                 }
-
-                // Destroy the projectile after hitting an enemy.
-                Destroy(gameObject);
             }
+            else if (owner == ProjectileOwner.Enemy)
+            {
+                // Wenn ein Gegner schießt, soll das Projektil den Spieler treffen
+                var player = other.gameObject.GetComponent<PlayerController>();
+                if (player != null)
+                {
+                    var playerHealth = player.GetComponent<Health>();
+                    if (playerHealth != null)
+                    {
+                        playerHealth.Decrement();
+                        if (!playerHealth.IsAlive)
+                        {
+                            Schedule<HealthIsZero>().health = playerHealth;
+                        }
+                    }
 
-            // You could also decide what happens if the projectile hits walls or other objects.
-            // For simplicity, we only handle enemy hit here.
+                    // Zerstöre das Projektil nach dem Treffer
+                    Destroy(gameObject);
+                }
+            }
         }
+
     }
 }

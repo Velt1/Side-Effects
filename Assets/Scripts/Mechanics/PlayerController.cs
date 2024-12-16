@@ -6,6 +6,7 @@ using static Platformer.Core.Simulation;
 using Platformer.Model;
 using Platformer.Core;
 
+
 namespace Platformer.Mechanics
 {
     /// <summary>
@@ -30,9 +31,9 @@ namespace Platformer.Mechanics
         public JumpState jumpState = JumpState.Grounded;
         private bool stopJump;
 
-        public Collider2D collider2d;
-        public AudioSource audioSource;
-        public Health health;
+        internal Collider2D collider2d;
+        internal AudioSource audioSource;
+        internal Health health;
         public bool controlEnabled = true;
 
         bool jump;
@@ -213,6 +214,7 @@ namespace Platformer.Mechanics
                 if (projectile != null)
                 {
                     projectile.direction = direction;
+                    projectile.owner = ProjectileOwner.Player;
                 }
             }
         }

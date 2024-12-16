@@ -3,45 +3,62 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Assets.tsx",
+    "activeFile": "Finales Level.tmx",
     "expandedProjectPaths": [
-        "."
+        "Fantasy Swamp Forest/Free",
+        ".",
+        "Fantasy Swamp Forest"
     ],
     "fileStates": {
+        "": {
+            "scaleInDock": 2
+        },
         "2. Level.tmx": {
-            "scale": 0.6560845015576323,
-            "selectedLayer": 0,
+            "scale": 0.75,
+            "selectedLayer": 17,
             "viewCenter": {
-                "x": 1260.5083614025198,
-                "y": 394.7662220111882
+                "x": 1191.9999999999998,
+                "y": -37.333333333333485
             }
         },
         "Assets.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1.5
+            "scaleInDock": 3,
+            "scaleInEditor": 4
         },
         "BG_1.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1.5
+            "scaleInDock": 3,
+            "scaleInEditor": 1
         },
         "Background-Trees.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1.5
+            "scaleInEditor": 1
         },
         "Background.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 3
         },
         "Buildings.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1.5
+            "scaleInDock": 3,
+            "scaleInEditor": 1
+        },
+        "Castle 1.tsx": {
+            "scaleInDock": 3,
+            "scaleInEditor": 4
+        },
+        "Castle 2.tsx": {
+            "scaleInDock": 3,
+            "scaleInEditor": 4
+        },
+        "Castle 3.tsx": {
+            "scaleInDock": 3,
+            "scaleInEditor": 4
         },
         "Dark-Tree.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1.5
+            "scaleInEditor": 1
         },
         "Fantasy Forest Tiles.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1.5
+            "scaleInEditor": 4
         },
         "Fantasy Swamp Forest/Free/BG_1.tsx": {
             "scaleInDock": 1,
@@ -82,12 +99,20 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "Finales Level.tmx": {
+            "scale": 1,
+            "selectedLayer": 8,
+            "viewCenter": {
+                "x": 623,
+                "y": 932
+            }
+        },
         "Green-Tree.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1.5
+            "scaleInEditor": 4
         },
         "Props-Rocks.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 3
         },
         "Terrain-and-Props-OLD.tsx": {
             "scaleInDock": 1,
@@ -95,34 +120,37 @@
         },
         "Terrain_and_Props.tsx": {
             "scaleInDock": 3,
-            "scaleInEditor": 1.5
+            "scaleInEditor": 4
         },
         "Tiles.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1.5
         },
         "Tree Background.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1.5
+            "scaleInDock": 3,
+            "scaleInEditor": 1
         },
         "Tree-Assets.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1.5
+            "scaleInEditor": 4
         },
         "Tutorial Level.tmx": {
-            "scale": 0.75,
+            "scale": 1.25,
             "selectedLayer": 9,
             "viewCenter": {
-                "x": 1723.9999999999998,
-                "y": 239.33333333333337
+                "x": 1404.8000000000002,
+                "y": 240.00000000000006
             }
+        },
+        "Tutorial Level.tmx#Props-Rocks": {
+            "scaleInDock": 2
         },
         "Tutorial Map.tmx": {
             "scale": 3,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 896,
-                "y": -128
+                "x": 896.1666666666666,
+                "y": -128.16666666666666
             }
         },
         "rune_checkpoint.tsx": {
@@ -146,15 +174,15 @@
         },
         "rune_projectile_death.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1.5
+            "scaleInEditor": 4
         },
         "rune_running.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1.5
+            "scaleInEditor": 4
         },
         "rune_walljump.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 1.5
+            "scaleInDock": 3,
+            "scaleInEditor": 4
         },
         "runes1.tsx": {
             "scaleInDock": 4,
@@ -165,8 +193,9 @@
             "scaleInEditor": 1
         }
     },
+    "last.externalTilesetPath": "C:/Users/cakos/Desktop/se_project",
     "last.imagePath": "C:/Users/cakos/Desktop/se_project",
-    "map.fixedSize": true,
+    "map.fixedSize": false,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
@@ -175,36 +204,36 @@
         "2. Level.tmx",
         "Assets.tsx",
         "Tutorial Level.tmx",
+        "Finales Level.tmx",
         "Tree-Assets.tsx",
-        "Tree Background.tsx",
-        "Background-Trees.tsx",
-        "BG_1.tsx",
-        "Buildings.tsx",
-        "Dark-Tree.tsx",
         "Fantasy Forest Tiles.tsx",
         "Green-Tree.tsx",
         "rune_projectile_death.tsx",
         "rune_running.tsx",
-        "rune_walljump.tsx",
         "Terrain_and_Props.tsx",
-        "Tutorial Map.tmx"
+        "Tutorial Map.tmx",
+        "Castle 1.tsx",
+        "Castle 2.tsx",
+        "Castle 3.tsx",
+        "rune_walljump.tsx"
     ],
     "project": "SE-Project.tiled-project",
     "recentFiles": [
         "2. Level.tmx",
+        "Assets.tsx",
+        "Tutorial Level.tmx",
+        "rune_walljump.tsx",
+        "Castle 3.tsx",
+        "Castle 2.tsx",
+        "Castle 1.tsx",
         "Tutorial Map.tmx",
         "Terrain_and_Props.tsx",
-        "rune_walljump.tsx",
         "rune_running.tsx",
         "rune_projectile_death.tsx",
-        "Green-Tree.tsx",
-        "Fantasy Forest Tiles.tsx",
-        "Dark-Tree.tsx",
-        "Buildings.tsx",
-        "BG_1.tsx",
-        "Background-Trees.tsx"
+        "Green-Tree.tsx"
     ],
     "resizeMap.removeObjects": true,
+    "tileset.lastUsedFilter": "Tiled-Kachelsatzdateien (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
         "height": 16,

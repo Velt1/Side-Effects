@@ -23,8 +23,16 @@ namespace Platformer.Mechanics
 
         public Bounds Bounds => _collider.bounds;
 
+        public Health health;
+        public float speed = 3f;
+        public GameObject projectilePrefab;
+        public Transform projectileSpawnPoint;
+
+
+
         void Awake()
         {
+            health = GetComponent<Health>();
             control = GetComponent<AnimationController>();
             _collider = GetComponent<Collider2D>();
             _audio = GetComponent<AudioSource>();

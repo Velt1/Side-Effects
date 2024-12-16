@@ -31,6 +31,7 @@ public class NPCDialogue : MonoBehaviour
         if (player != null)
         {
             playerInRange = false;
+            dialogueUI.EndDialogue();
         }
     }
 

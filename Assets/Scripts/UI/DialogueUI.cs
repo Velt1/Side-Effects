@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // falls Sie TextMeshPro verwenden möchten
+using System.Collections;
+using TMPro;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -13,9 +14,14 @@ public class DialogueUI : MonoBehaviour
     [Tooltip("Text component that shows the dialogue lines")]
     public TextMeshProUGUI dialogueText;
 
+    [Tooltip("Time delay between each character appearing")]
+    public float typingSpeed = 0.05f; // Zeit in Sekunden zwischen Zeichen
+
     private string[] currentLines;
     private int currentIndex;
     public bool IsDialogueActive { get; private set; } = false;
+
+    private Coroutine typingCoroutine;
 
     void Start()
     {
@@ -35,9 +41,11 @@ public class DialogueUI : MonoBehaviour
         if (npcNameText != null)
             npcNameText.text = npcName;
 
-        dialogueText.text = currentLines[currentIndex];
-        Debug.Log("Dialogue started with " + npcName);
-        Debug.Log("Line 1: " + currentLines[0]);
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
+        typingCoroutine = StartCoroutine(TypeLine(currentLines[currentIndex]));
     }
 
     public void ShowNextLine()
@@ -47,7 +55,11 @@ public class DialogueUI : MonoBehaviour
         currentIndex++;
         if (currentIndex < currentLines.Length)
         {
-            dialogueText.text = currentLines[currentIndex];
+            if (typingCoroutine != null)
+            {
+                StopCoroutine(typingCoroutine);
+            }
+            typingCoroutine = StartCoroutine(TypeLine(currentLines[currentIndex]));
         }
         else
         {
@@ -60,5 +72,15 @@ public class DialogueUI : MonoBehaviour
     {
         IsDialogueActive = false;
         dialoguePanel.SetActive(false);
+    }
+
+    private IEnumerator TypeLine(string line)
+    {
+        dialogueText.text = ""; // Textfeld leeren
+        foreach (char c in line.ToCharArray())
+        {
+            dialogueText.text += c;
+            yield return new WaitForSeconds(typingSpeed); // Wartezeit zwischen den Zeichen
+        }
     }
 }
