@@ -15,7 +15,7 @@ public class DialogueUI : MonoBehaviour
     public TextMeshProUGUI dialogueText;
 
     [Tooltip("Time delay between each character appearing")]
-    public float typingSpeed = 0.05f; // Zeit in Sekunden zwischen Zeichen
+    public float typingSpeed = 0.03f; // Zeit in Sekunden zwischen Zeichen
 
     private string[] currentLines;
     private int currentIndex;

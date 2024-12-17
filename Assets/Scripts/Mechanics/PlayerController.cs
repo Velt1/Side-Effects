@@ -47,7 +47,7 @@ namespace Platformer.Mechanics
         // WALLJUMP ADDITION:
         [Header("Wall Jump Settings")]
         public LayerMask wallLayer; // Assign the wall layer in the inspector
-        public float wallCheckDistance = 0.5f; // Distance to check for wall in front
+        public float wallCheckDistance = 0.1f; // Distance to check for wall in front
         public float wallJumpHorizontalVelocity = 7f; // Horizontal velocity after wall jump
         public float wallJumpVerticalVelocity = 7f;   // Vertical velocity after wall jump
         public GameObject projectilePrefab;
