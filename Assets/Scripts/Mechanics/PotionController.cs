@@ -79,58 +79,167 @@ namespace Platformer.Mechanics
             return potionUsageCounts[effectType];
         }
 
-        public void ApplyPotionSideEffect(PotionEffectType effectType, PlayerController player)
-        {
-            switch (effectType)
-            {
-                case PotionEffectType.HighJump:
-                    // Beispiel: Spieler sieht verschwommen
-                    StartCoroutine(ApplyBlurEffect(player, 5f));
-                    Debug.Log("Side effect: Blurred vision!");
-                    break;
-
-                case PotionEffectType.ExtraLife:
-                    // Beispiel: Spieler verliert Bewegungsgeschwindigkeit
-                    player.maxSpeed *= 0.8f;
-                    StartCoroutine(RemoveEffectAfterDuration(() => player.maxSpeed /= 0.8f, 5f));
-                    Debug.Log("Side effect: Reduced movement speed!");
-                    break;
-
-                case PotionEffectType.PhaseThroughEnemies:
-                    // Beispiel: Spieler kann nicht springen
-                    StartCoroutine(ApplyColorEffect(player, 5f));
-                    Debug.Log("Side effect: Cannot jump!");
-                    break;
-
-                default:
-                    Debug.LogWarning("Unknown potion side effect type!");
-                    break;
-            }
-        }
-
         public void ApplyPotionEffect(PotionEffectType effectType, float duration, PlayerController player)
         {
+            int usageCount = potionUsageCounts.ContainsKey(effectType) ? potionUsageCounts[effectType] : 0;
+
             switch (effectType)
             {
-                case PotionEffectType.ExtraLife:
-                    player.health.Increment();
-                    Debug.Log("Extra Life granted!");
+                case PotionEffectType.BlauesWunder:
+                    // Effekte: +2 Extra Leben, unendlich Projektile für begrenzte Zeit
+                    player.health.Increment(); // +1 Leben
+                    player.health.Increment(); // +1 weiteres Leben
+                    player.StartCoroutine(EnableInfiniteProjectiles(player, 10f)); // 10 Sekunden Beispieldauer
+
+                    Debug.Log("Blaues Wunder Effekt: +2 Leben, unendlich Projektile kurzzeitig!");
                     break;
-                case PotionEffectType.HighJump:
-                    player.jumpTakeOffSpeed *= 1.5f; // Beispiel: Erhöht Sprungkraft um 50 %
-                    StartCoroutine(RemoveEffectAfterDuration(() => player.jumpTakeOffSpeed /= 1.5f, duration));
-                    Debug.Log("High Jump enabled!");
+
+                case PotionEffectType.FluessigerAether:
+                    // Effekte: Höhere Geschwindigkeit und Sprungkraft
+                    // Dauer wird jedes Mal ggf. reduziert, je mehr Tränke genommen wurden
+                    float baseDuration = 10f;
+                    float reducedDuration = Mathf.Max(3f, baseDuration - (usageCount * 1f));
+                    // Effekt anwenden
+                    player.maxSpeed *= 1.5f;
+                    player.jumpTakeOffSpeed *= 1.2f;
+                    // Nach Ablauf revertieren und ggf. langsamer machen
+                    player.StartCoroutine(RevertAetherEffect(player, reducedDuration));
+                    Debug.Log("Flüssiger Aether: Schneller + höher springen für " + reducedDuration + " Sekunden.");
+
                     break;
-                case PotionEffectType.PhaseThroughEnemies:
-                    player.collider2d.enabled = false; // Beispiel: Spieler kollidiert nicht mit Feinden
-                    StartCoroutine(RemoveEffectAfterDuration(() => player.collider2d.enabled = true, 0.2f));
-                    Debug.Log("Phase Through Enemies activated!");
+
+                case PotionEffectType.Phantomgebraeu:
+                    // Effekte: Unverwundbar und kann durch Gegner gleiten
+                    // Mache Spieler invulnerable und collider disabled:
+                    //player.collider2d.enabled = false;
+                    // Du könntest einen Status für Unverwundbarkeit setzen:
+                    player.health.invulnerable = true;
+                    // Nach Ablauf wieder normalisieren, außer du willst es permanent machen.
+                    player.StartCoroutine(RevertPhantomEffect(player, 8f));
+                    Debug.Log("Phantomgebräu: Unverwundbar und Phasing für 8 Sekunden!");
                     break;
+
                 default:
                     Debug.LogWarning("Unknown potion effect type!");
                     break;
             }
         }
+
+        public void ApplyPermanentSideEffect(PotionEffectType effectType, PlayerController player, int intensity)
+        {
+            // Hier werden die permanenten oder eskalierenden Nebenwirkungen verstärkt.
+            // Der "intensity"-Parameter steigt mit jedem zusätzlichen Trank über der Schwelle.
+
+            switch (effectType)
+            {
+                case PotionEffectType.BlauesWunder:
+                    // Nebenwirkung: Extra-Leben verschwinden immer schneller, ab X Tränken Chance auf direkten Tod
+                    // Beispiel: Bei jeder Intensitätsstufe reduzierst du die Health Caps oder fügst eine Tod-Chance hinzu:
+                    // z.B. ab intensity 1 (also 6. Trank), 10% Chance auf sofortigen Tod beim Konsum
+                    // ab intensity 2 (7. Trank), 20% Chance, usw.
+                    float deathChance = 0.1f * intensity;
+                    if (Random.value < deathChance)
+                    {
+                        Debug.Log("Nebenwirkung Blaues Wunder: Sofortiger Tod!");
+                        player.health.Die();
+                    }
+                    else
+                    {
+                        Debug.Log("Nebenwirkung Blaues Wunder Intensität " + intensity + ": Höhere Todeschance!");
+                    }
+                    break;
+
+                case PotionEffectType.FluessigerAether:
+                    // Nebenwirkung: Verstärkte Effekte halten immer kürzer, Spieler wird nach Effekt langsamer
+                    // Mit höherer Intensität könnte der Spieler nach Ablauf immer länger verlangsamt sein.
+                    // Beispiel: pro Intensität +2 Sek. Extra-Langsame Phase nach Effektende
+                    // Dies kann in RevertAetherEffect berücksichtigt werden, indem du intensity abfragst:
+                    // Hier kannst du den globalen Zustand speichern, z.B. im Player selbst.
+                    player.maxSpeed -= 0.01f * intensity; // wird immer langsamer insgesamt
+                    FindObjectOfType<ColorController>().AdjustColors(10.0f * intensity, 1.0f - (0.1f * intensity), 1.0f - (0.1f * intensity));
+                    Debug.Log("Nebenwirkung Flüssiger Aether Intensität " + intensity + ": Dauerhaft geringere Grundgeschwindigkeit!");
+                    break;
+
+                case PotionEffectType.Phantomgebraeu:
+                    // Nebenwirkung: Spieler verliert teilweise die Kontrolle.
+                    // Mit jeder Intensitätsstufe verschlechtert sich die Steuerung stärker.
+                    // Beispiel: Input-Inversion oder zufälliges "Stottern".
+                    // Hier nur ein Beispiel: Spieler-Input wird langsamer umgesetzt.
+                    // Du könntest ein Flag im Player setzen, dass bei jeder Intensität den Input verzögert oder invertiert.
+                    Debug.Log("Nebenwirkung Phantomgebraeu Intensität " + intensity + ": Steuerung wird schwieriger!");
+                    FindObjectOfType<VignetteController>().AdjustVignette(0.1f * intensity, 0.7f, 0.9f);
+                    player.StartCoroutine(ApplyControlDistortion(player, intensity));
+                    break;
+            }
+        }
+
+        // Beispiel-Koroutinen für die Effekte
+
+        private IEnumerator EnableInfiniteProjectiles(PlayerController player, float duration)
+        {
+            // Angenommen PlayerController hat eine Variable, die unendliche Projektile erlaubt:
+            // Im PlayerController könntest du ein bool "infiniteAmmo" definieren.
+            bool originalSetting = player.projectilePrefab != null;
+            // Hier müsstest du anpassen, wie du infinite Projektile sicherstellst,
+            // z.B. indem du im PlayerController eine Variable infiniteAmmo = true setzt.
+
+            // Beispiel: Wir tun so, als hätte Player unendlich Projektile:
+            // Vielleicht besitzt der Spieler normal ein Ammo-Limit. Hier einfach nur ein Flag:
+            player.GetComponent<ProjectileManager>()?.EnableInfiniteAmmo(true);
+
+            yield return new WaitForSeconds(duration);
+
+            // Danach infinite Ammo wieder ausschalten
+            player.GetComponent<ProjectileManager>()?.EnableInfiniteAmmo(false);
+        }
+
+        private IEnumerator RevertAetherEffect(PlayerController player, float duration)
+        {
+            // Warte bis die Zeit um ist.
+            yield return new WaitForSeconds(duration);
+            // Effekt zurücksetzen
+            player.maxSpeed /= 1.5f;
+            player.jumpTakeOffSpeed /= 1.2f;
+
+            // Nach dem Effekt wird der Spieler langsamer für eine gewisse Zeit.
+            float slowDuration = 3f; // Basisverlangsamung
+                                     // Falls du die Intensität berücksichtigen willst, hol sie dir:
+            int usageCount = potionUsageCounts[PotionEffectType.FluessigerAether];
+            int intensity = Mathf.Max(0, usageCount - 5);
+            slowDuration += intensity * 2f; // Für jedes Intensitätslevel +2s langsam
+
+            float originalSpeed = player.maxSpeed;
+            player.maxSpeed *= 0.5f; // Temporär langsamer
+            yield return new WaitForSeconds(slowDuration);
+            player.maxSpeed = originalSpeed;
+
+            // Bei sehr vielen konsumierten Tränken kannst du z. B. random den Effekt vorzeitig abbrechen
+            // (Das könntest du beim Aktivieren des Effekts schon berücksichtigen.)
+        }
+
+        private IEnumerator RevertPhantomEffect(PlayerController player, float duration)
+        {
+            yield return new WaitForSeconds(duration);
+            // Effekt zurücksetzen
+            //player.collider2d.enabled = true;
+            player.health.invulnerable = false;
+        }
+
+        private IEnumerator ApplyControlDistortion(PlayerController player, int intensity)
+        {
+            // Beispiel: Input-Inversion für 5 Sekunden * Intensität
+            float distortDuration = 5f * intensity;
+
+            // PlayerController so anpassen, dass er eine Variable "controlDistortion" hat
+            // oder du modifizierst direkt im Update den Input basierend auf einer Variable.
+            player.controlEnabled = true; // normal an, aber wir invertieren Input in ComputeVelocity oder Update
+            player.GetComponent<ControlDistortion>()?.EnableDistortion(intensity);
+
+            yield return new WaitForSeconds(distortDuration);
+
+            player.GetComponent<ControlDistortion>()?.DisableDistortion();
+        }
+
 
         private IEnumerator ApplyBlurEffect(PlayerController player, float duration)
         {

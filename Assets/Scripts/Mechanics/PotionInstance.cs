@@ -78,22 +78,7 @@ namespace Platformer.Mechanics
             ev.player = player;
 
             // Apply effects to the player immediately (or via the event).
-            ApplyPotionEffect(player);
-        }
-
-        void ApplyPotionEffect(PlayerController player)
-        {
-            if (controller != null)
-            {
-                int usageCount = controller.IncrementPotionUsage(effectType);
-                controller.ApplyPotionEffect(effectType, effectDuration, player);
-                // Wenn Nutzung die Sicherheitsgrenze überschreitet, triggere Nebeneffekt
-                if (usageCount > safeUsageCount && Random.value < sideEffectChance)
-                {
-                    Debug.Log("Side effect triggered!");
-                    controller.ApplyPotionSideEffect(effectType, player);
-                }
-            }
+            player.inventory.AddPotion(this);
         }
 
 
@@ -105,9 +90,8 @@ namespace Platformer.Mechanics
     /// </summary>
     public enum PotionEffectType
     {
-        ExtraLife,
-        HighJump,
-        PhaseThroughEnemies,
-        // Add more effects as needed
+        BlauesWunder,
+        FluessigerAether,
+        Phantomgebraeu
     }
 }

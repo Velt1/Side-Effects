@@ -56,7 +56,9 @@ namespace Platformer.Mechanics
         [Header("Wall Jump Settings")]
         public float wallJumpCooldown = 0.5f; // Zeit in Sekunden
         private float lastWallJumpTime = -Mathf.Infinity; // Zeitpunkt des letzten Walljumps
-
+        public PlayerInventory inventory;
+        public ProjectileManager projectileManager;
+        public DialogueUI dialogueUI;
 
         void Awake()
         {
@@ -65,6 +67,8 @@ namespace Platformer.Mechanics
             collider2d = GetComponent<Collider2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
+            inventory = GetComponent<PlayerInventory>();
+            projectileManager = GetComponent<ProjectileManager>();
         }
 
         protected override void Update()
@@ -73,6 +77,14 @@ namespace Platformer.Mechanics
             {
                 move.x = Input.GetAxis("Horizontal");
 
+                //press e or enter to end dialogue
+                if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return))
+                {
+                    if (dialogueUI.IsDialogueActive)
+                    {
+                        dialogueUI.EndDialogue();
+                    }
+                }
                 // Normal jump input
                 if (jumpState == JumpState.Grounded && Input.GetButtonDown("Jump"))
                 {
@@ -83,10 +95,10 @@ namespace Platformer.Mechanics
                     stopJump = true;
                     Schedule<PlayerStopJump>().player = this;
                 }
-
-                if (Input.GetButtonDown("Fire1"))
+                //Use Keycode Q
+                if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    Debug.Log("Fire1 button pressed");
+                    Debug.Log("Q button pressed");
                     ShootProjectile();
                 }
 
@@ -201,21 +213,24 @@ namespace Platformer.Mechanics
 
         void ShootProjectile()
         {
-            if (projectilePrefab != null && projectileSpawnPoint != null)
+            if (projectileManager != null && projectileManager.CanShoot())
             {
                 Debug.Log("Shooting projectile");
-                // Determine direction based on sprite flipping or your facing variable
                 float direction = spriteRenderer.flipX ? -1f : 1f;
-
-                // Instantiate the projectile
                 GameObject projectileObj = Instantiate(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity);
-                // Get the Projectile component and set its direction
                 var projectile = projectileObj.GetComponent<Projectile>();
                 if (projectile != null)
                 {
                     projectile.direction = direction;
                     projectile.owner = ProjectileOwner.Player;
                 }
+
+                // Verbrauch Munition
+                projectileManager.ConsumeAmmo();
+            }
+            else
+            {
+                Debug.Log("No ammo left! Reach a checkpoint or enable infinite ammo.");
             }
         }
 
