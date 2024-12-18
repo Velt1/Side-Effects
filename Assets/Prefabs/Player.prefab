@@ -54,15 +54,12 @@ MonoBehaviour:
   minGroundNormalY: 0.9
   gravityModifier: 1
   velocity: {x: 0, y: 0}
-  jumpAudio: {fileID: 8300000, guid: 67975c08d56ceb147bad38572d805aa8, type: 3}
+  jumpAudio: {fileID: 8300000, guid: 6a8e8b129119a4a4f9546f71f2145cd7, type: 3}
   respawnAudio: {fileID: 8300000, guid: e18959d46b63f3c4c8cc020a433cf848, type: 3}
-  ouchAudio: {fileID: 8300000, guid: 6c05149e5a2fba64ba172e25a61074b7, type: 3}
+  ouchAudio: {fileID: 8300000, guid: 612eeb13d2412473ca32b21cc8ebd4d1, type: 3}
   maxSpeed: 3
   jumpTakeOffSpeed: 7
   jumpState: 0
-  collider2d: {fileID: 0}
-  audioSource: {fileID: 0}
-  health: {fileID: 0}
   controlEnabled: 1
   wallLayer:
     serializedVersion: 2
@@ -73,6 +70,10 @@ MonoBehaviour:
   projectilePrefab: {fileID: 4909854772645146995, guid: ebd6d660eb6564d38ad5330e92226484,
     type: 3}
   projectileSpawnPoint: {fileID: 5815473066539014360}
+  wallJumpCooldown: 0.5
+  inventory: {fileID: 0}
+  projectileManager: {fileID: 0}
+  dialogueUI: {fileID: 0}
 --- !u!212 &212064061491315838
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -275,6 +276,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 1
+  isPlayer: 0
+  invulnerable: 0
+  currentHP: 0
 --- !u!61 &1824045667
 BoxCollider2D:
   m_ObjectHideFlags: 0

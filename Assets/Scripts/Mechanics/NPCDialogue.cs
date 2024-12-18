@@ -4,16 +4,9 @@ using Platformer.Mechanics;
 public class NPCDialogue : MonoBehaviour
 {
     [Tooltip("The lines of dialogue the NPC will say in order.")]
-    public string[] dialogueLines;
+    public DialogueEntry[] dialogueEntries;
 
-    [Tooltip("Optional NPC name to display before the dialogue lines.")]
-    public string npcName;
-
-    // Flag to indicate if player is in range
     private bool playerInRange = false;
-
-    // A reference to a DialogueUI script that handles showing/hiding the UI
-    // Assign this in the inspector or find it at runtime.
     public DialogueUI dialogueUI;
 
     void OnTriggerEnter2D(Collider2D other)
@@ -37,19 +30,14 @@ public class NPCDialogue : MonoBehaviour
 
     void Update()
     {
-        // Check if player is in range and presses a key to start or advance dialog
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
-
             if (!dialogueUI.IsDialogueActive)
             {
-                Debug.Log("Player pressed E key to interact with NPC");
-                // Start the dialogue
-                dialogueUI.StartDialogue(dialogueLines, npcName);
+                dialogueUI.StartDialogue(dialogueEntries);
             }
             else
             {
-                // Advance to next line
                 dialogueUI.ShowNextLine();
             }
         }

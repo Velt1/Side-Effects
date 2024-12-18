@@ -78,11 +78,11 @@ namespace Platformer.Mechanics
                 move.x = Input.GetAxis("Horizontal");
 
                 //press e or enter to end dialogue
-                if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return))
+                if (Input.GetKeyDown(KeyCode.Return))
                 {
                     if (dialogueUI.IsDialogueActive)
                     {
-                        dialogueUI.EndDialogue();
+                        dialogueUI.ShowNextLine();
                     }
                 }
                 // Normal jump input

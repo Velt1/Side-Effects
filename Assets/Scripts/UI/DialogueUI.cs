@@ -5,19 +5,12 @@ using TMPro;
 
 public class DialogueUI : MonoBehaviour
 {
-    [Tooltip("UI Panel containing dialogue text and possibly NPC name")]
     public GameObject dialoguePanel;
-
-    [Tooltip("Text component that shows the NPC name (optional)")]
     public TextMeshProUGUI npcNameText;
-
-    [Tooltip("Text component that shows the dialogue lines")]
     public TextMeshProUGUI dialogueText;
+    public float typingSpeed = 0.03f;
 
-    [Tooltip("Time delay between each character appearing")]
-    public float typingSpeed = 0.03f; // Zeit in Sekunden zwischen Zeichen
-
-    private string[] currentLines;
+    private DialogueEntry[] currentEntries;
     private int currentIndex;
     public bool IsDialogueActive { get; private set; } = false;
 
@@ -25,27 +18,36 @@ public class DialogueUI : MonoBehaviour
 
     void Start()
     {
-        // Am Anfang sicherstellen, dass das Panel versteckt ist
         dialoguePanel.SetActive(false);
     }
 
-    public void StartDialogue(string[] lines, string npcName = "")
+    public void StartDialogue(DialogueEntry[] entries)
     {
-        if (lines.Length == 0) return;
+        if (entries == null || entries.Length == 0) return;
 
-        currentLines = lines;
+        currentEntries = entries;
         currentIndex = 0;
         IsDialogueActive = true;
         dialoguePanel.SetActive(true);
 
+        ShowCurrentLine();
+    }
+
+    private void ShowCurrentLine()
+    {
+        if (currentIndex < 0 || currentIndex >= currentEntries.Length) return;
+
+        DialogueEntry entry = currentEntries[currentIndex];
+
+        // Sprechername anzeigen, wenn vorhanden
         if (npcNameText != null)
-            npcNameText.text = npcName;
+            npcNameText.text = string.IsNullOrEmpty(entry.speakerName) ? "" : entry.speakerName;
 
         if (typingCoroutine != null)
         {
             StopCoroutine(typingCoroutine);
         }
-        typingCoroutine = StartCoroutine(TypeLine(currentLines[currentIndex]));
+        typingCoroutine = StartCoroutine(TypeLine(entry.lineText));
     }
 
     public void ShowNextLine()
@@ -53,17 +55,12 @@ public class DialogueUI : MonoBehaviour
         if (!IsDialogueActive) return;
 
         currentIndex++;
-        if (currentIndex < currentLines.Length)
+        if (currentIndex < currentEntries.Length)
         {
-            if (typingCoroutine != null)
-            {
-                StopCoroutine(typingCoroutine);
-            }
-            typingCoroutine = StartCoroutine(TypeLine(currentLines[currentIndex]));
+            ShowCurrentLine();
         }
         else
         {
-            // Keine weiteren Dialogzeilen vorhanden, Dialog beenden
             EndDialogue();
         }
     }
@@ -76,11 +73,11 @@ public class DialogueUI : MonoBehaviour
 
     private IEnumerator TypeLine(string line)
     {
-        dialogueText.text = ""; // Textfeld leeren
+        dialogueText.text = "";
         foreach (char c in line.ToCharArray())
         {
             dialogueText.text += c;
-            yield return new WaitForSeconds(typingSpeed); // Wartezeit zwischen den Zeichen
+            yield return new WaitForSeconds(typingSpeed);
         }
     }
 }

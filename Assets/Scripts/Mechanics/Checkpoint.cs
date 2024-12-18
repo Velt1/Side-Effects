@@ -5,9 +5,12 @@ public class Checkpoint : MonoBehaviour
 {
     public GameObject spawnPoint;
     public DialogueUI dialogueUI; // Referenz auf das DialogueUI
-    [TextArea(3, 5)]
-    public string[] dialogueLines; // Zeilen für den Dialog beim Erreichen des Checkpoints
-    public string npcName; // Optional: Name des NPC/Charakters, von dem der Dialog stammt
+
+    [Tooltip("Die Dialogeinträge, jeweils mit Sprecher und Text.")]
+    public DialogueEntry[] dialogueEntries;
+
+    // Bool, um zu verfolgen, ob der Dialog bereits gestartet wurde
+    private bool dialogueTriggered = false;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -29,16 +32,18 @@ public class Checkpoint : MonoBehaviour
                 Debug.Log("Ammo refilled at checkpoint!");
             }
 
-            // Dialog abspielen, sofern vorhanden und DialogueUI referenziert ist
-            if (dialogueUI != null && dialogueLines.Length > 0)
+            // Dialog nur starten, wenn er noch nicht gestartet wurde
+            if (!dialogueTriggered && dialogueUI != null && dialogueEntries != null && dialogueEntries.Length > 0)
             {
-                // Falls gerade ein anderer Dialog läuft, erst beenden
+                // Falls gerade ein anderer Dialog läuft, beende diesen zuerst
                 if (dialogueUI.IsDialogueActive)
                 {
                     dialogueUI.EndDialogue();
                 }
 
-                dialogueUI.StartDialogue(dialogueLines, npcName);
+                // Starte den neuen Dialog
+                dialogueUI.StartDialogue(dialogueEntries);
+                dialogueTriggered = true; // Dialog als "abgespielt" markieren
             }
         }
     }

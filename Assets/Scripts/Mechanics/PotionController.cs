@@ -101,7 +101,7 @@ namespace Platformer.Mechanics
                     float reducedDuration = Mathf.Max(3f, baseDuration - (usageCount * 1f));
                     // Effekt anwenden
                     player.maxSpeed *= 1.5f;
-                    player.jumpTakeOffSpeed *= 1.2f;
+                    player.jumpTakeOffSpeed *= 1.5f;
                     // Nach Ablauf revertieren und ggf. langsamer machen
                     player.StartCoroutine(RevertAetherEffect(player, reducedDuration));
                     Debug.Log("Flüssiger Aether: Schneller + höher springen für " + reducedDuration + " Sekunden.");
@@ -138,6 +138,8 @@ namespace Platformer.Mechanics
                     // z.B. ab intensity 1 (also 6. Trank), 10% Chance auf sofortigen Tod beim Konsum
                     // ab intensity 2 (7. Trank), 20% Chance, usw.
                     float deathChance = 0.1f * intensity;
+                    FindObjectOfType<ColorController>().AdjustColors(10.0f * intensity, 1.0f - (0.1f * intensity), 1.0f - (0.1f * intensity));
+                    FindObjectOfType<VignetteController>().AdjustVignette(0.3f * intensity, 0.7f, 0.9f);
                     if (Random.value < deathChance)
                     {
                         Debug.Log("Nebenwirkung Blaues Wunder: Sofortiger Tod!");
@@ -157,6 +159,7 @@ namespace Platformer.Mechanics
                     // Hier kannst du den globalen Zustand speichern, z.B. im Player selbst.
                     player.maxSpeed -= 0.01f * intensity; // wird immer langsamer insgesamt
                     FindObjectOfType<ColorController>().AdjustColors(10.0f * intensity, 1.0f - (0.1f * intensity), 1.0f - (0.1f * intensity));
+                    FindObjectOfType<VignetteController>().AdjustVignette(0.3f * intensity, 0.7f, 0.9f);
                     Debug.Log("Nebenwirkung Flüssiger Aether Intensität " + intensity + ": Dauerhaft geringere Grundgeschwindigkeit!");
                     break;
 
@@ -167,8 +170,9 @@ namespace Platformer.Mechanics
                     // Hier nur ein Beispiel: Spieler-Input wird langsamer umgesetzt.
                     // Du könntest ein Flag im Player setzen, dass bei jeder Intensität den Input verzögert oder invertiert.
                     Debug.Log("Nebenwirkung Phantomgebraeu Intensität " + intensity + ": Steuerung wird schwieriger!");
-                    FindObjectOfType<VignetteController>().AdjustVignette(0.1f * intensity, 0.7f, 0.9f);
-                    player.StartCoroutine(ApplyControlDistortion(player, intensity));
+                    FindObjectOfType<VignetteController>().AdjustVignette(0.3f * intensity, 0.7f, 0.9f);
+                    FindObjectOfType<ColorController>().AdjustColors(10.0f * intensity, 1.0f - (0.1f * intensity), 1.0f - (0.1f * intensity));
+                    //player.StartCoroutine(ApplyControlDistortion(player, intensity));
                     break;
             }
         }

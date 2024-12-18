@@ -22,6 +22,7 @@ public class VignetteController : MonoBehaviour
     public void AdjustVignette(float intensity, float smoothness = 0.5f, float roundness = 1.0f)
     {
         vignette.intensity.Override(intensity);
+        Debug.Log("Vignette intensity: " + intensity);
     }
 
 
